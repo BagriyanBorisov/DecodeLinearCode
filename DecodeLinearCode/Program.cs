@@ -21,27 +21,30 @@ namespace DecodeLinearCode
             //AllCodeWords
             List<int[]> allCodeWords = new List<int[]>();
             CodeWords(allCodeWords, matrixG);
-            allCodeWords.ForEach(x => Console.WriteLine(string.Join(' ', x)));
-            List<string> codeWords = CodeWordsToStrings(allCodeWords);
             Console.WriteLine("-------------------------");
             Console.WriteLine("All Code Words:");
-
+            allCodeWords.ForEach(x => Console.WriteLine(string.Join(' ', x)));
+            List<string> codeWords = CodeWordsToStrings(allCodeWords);
+           
             //H = AT|E
             int[,] matrixH = CreateH(matrixG);
-            PrintMatrix(matrixH);
             Console.WriteLine("-------------------------");
             Console.WriteLine($"H = AT|E ");
+            PrintMatrix(matrixH);
+
 
             //Read Y vector
-            int[] vectorY = Console.ReadLine().Split().Select(int.Parse).ToArray();
             Console.WriteLine("-------------------------");
             Console.WriteLine("Enter y Vector with spaces between each number: ");
+            int[] vectorY = Console.ReadLine().Split().Select(int.Parse).ToArray();
+          
            
 
             //H.Yt = if 0 all lengths => noErrors else search subClasses
             int[] HxYt = CreateVectorFromMultiplyHandVector(matrixH, vectorY);
             Console.WriteLine("-------------------------");
             Console.WriteLine($"H*Yt = {string.Join(", ", HxYt)}");
+
 
             //BinaryTable of 2 of the power of Matrix[0].length;
             List<string> table = GenerateBinaryNumber(matrixG.GetLength(1));
